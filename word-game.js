@@ -4,7 +4,9 @@ var session = require('express-session')
 
 var app = express()
 
-const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+//const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+
+app.set('views', './views');
 
 app.use(session({
   secret: 'keyboard cat',
