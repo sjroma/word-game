@@ -1,10 +1,14 @@
 var express = require('express')
 var parseurl = require('parseurl')
 var session = require('express-session')
+var fs = require('fs');
+
 
 var app = express()
 
-//const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+
+const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+//console.log(words);  // Gets a crap-ton of words
 
 app.set('views', './views');
 
