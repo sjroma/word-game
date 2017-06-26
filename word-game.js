@@ -6,6 +6,9 @@ const mustacheExpress = require('mustache-express');
 const app = express();
 var fs = require('fs');
 
+var guessedLetter = "";  // this will be the letter the user guesses
+var rememGuess = "";     // this will be all the letters the user guessed
+
 
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 //console.log(words);  // Gets a crap-ton of words
@@ -19,6 +22,14 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+// Set app to use bodyParser() middleware.
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+//'extended: false' parses strings and arrays.
+//'extended: true' parses nested objects
+//'expressValidator' must come after 'bodyParser', since data must be parsed first!
+app.use(expressValidator());
 
 app.use(express.static('public'));
 
@@ -40,6 +51,12 @@ app.use(function (req, res, next) {
 
 app.get('/', function (req, res) {
   res.render('index');
+});
+
+app.get('/:letter', function(req, res) {
+  let guessedLetter = req.params.letter.toUpperCase();
+  
+  if(guessedLetter !=)
 });
 
 
