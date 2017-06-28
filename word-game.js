@@ -4,15 +4,20 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mustacheExpress = require('mustache-express');
 const app = express();
-var fs = require('fs');
+var fs = require('fs'); // File System module (part of Node.js)
 
-var guessedLetter = "";  // this will be the letter the user guesses
-var rememGuess = "";     // this will be all the letters the user guessed
+//var guessedLetter = "";  // this will be the letter the user guesses
+//var rememGuess = "";     // this will be all the letters the user guessed
 
 
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 //console.log(words);  // Gets a crap-ton of words
+var randomWord = words[Math.floor(Math.random() * words.length)];
+var secretWord = randomWord.replace(/[A-Z]/g,"_");  // forgot where I found this...adding comments for future me too late
+console.log("the word is:", randomWord);
 
+
+// View Engine
 app.engine('mustache', mustacheExpress());
 app.set('views', './views');
 app.set('view engine', 'mustache');
@@ -23,14 +28,15 @@ app.use(session({
   saveUninitialized: true
 }))
 
-// Set app to use bodyParser() middleware.
+// Set app to use Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //'extended: false' parses strings and arrays.
 //'extended: true' parses nested objects
 //'expressValidator' must come after 'bodyParser', since data must be parsed first!
-app.use(expressValidator());
+//app.use(expressValidator());
 
+// Set Static Path (this is where my static resourses, like CSS files, reside)
 app.use(express.static('public'));
 
 app.use(function (req, res, next) {
@@ -51,12 +57,6 @@ app.use(function (req, res, next) {
 
 app.get('/', function (req, res) {
   res.render('index');
-});
-
-app.get('/:letter', function(req, res) {
-  let guessedLetter = req.params.letter.toUpperCase();
-  
-  if(guessedLetter !=)
 });
 
 

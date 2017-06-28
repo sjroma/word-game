@@ -1,0 +1,18 @@
+body {
+  background-image: url(./soft.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  font-family: 'Chalkduster', 'Arial Rounded MT Bold', sans-serif;;
+}
+
+h1 {
+  
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
