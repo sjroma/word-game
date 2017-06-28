@@ -14,7 +14,7 @@ const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().sp
 //console.log(words);  // Gets a crap-ton of words
 var randomWord = words[Math.floor(Math.random() * words.length)];
 var secretWord = randomWord.replace(/[A-Z]/g,"_");  // forgot where I found this...adding comments for future me too late
-console.log("the word is:", randomWord);
+console.log("the word is:", randomWord);  
 
 
 // View Engine
