@@ -24,3 +24,13 @@ body {
     padding-top: 1em;
     text-transform: uppercase;  
 }
+
+.form_container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.guess_area {
+	
+}

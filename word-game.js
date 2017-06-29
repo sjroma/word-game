@@ -9,12 +9,32 @@ var fs = require('fs'); // File System module (part of Node.js)
 //var guessedLetter = "";  // this will be the letter the user guesses
 //var rememGuess = "";     // this will be all the letters the user guessed
 
-
+// Word Game voodoo
+// goes to the computer dictionary and gets a random word
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 //console.log(words);  // Gets a crap-ton of words
-var randomWord = words[Math.floor(Math.random() * words.length)];
-var secretWord = randomWord;  // forgot where I found this...adding comments for future me too late
-console.log("the secretWord is:", randomWord);  
+var randomWord = words[Math.floor(Math.random() * words.length)]; // forgot where I found this...adding comments for future me too late
+var secretWord = randomWord;
+console.log("the secretWord is:", randomWord);
+var swArray = randomWord.split("");  // puts secret word in an array, letters separated by commas
+console.log("secWord in array is:", swArray);
+let displaySW = makeDashes(swArray);  // call makeDashes function...use when comparing user guess?
+let joinSW = makeDashes(swArray);
+let displayableSW = joinSW.join('');  // to display dashes on screen the length of the word
+console.log("displaySW;", displaySW);
+console.log('displayableSW;', displayableSW);
+
+// function to change the Secret Word into an array of dashes
+function makeDashes(swArray) {
+	var dashArray = [];
+	for (i = 0; i < swArray.length; i++) {
+		dashArray.push('_ ');
+	}
+	return dashArray;
+};
+console.log("should be dashes;", makeDashes(swArray));
+
+
 
 
 // View Engine
@@ -23,14 +43,16 @@ app.set('views', './views');
 app.set('view engine', 'mustache');
 
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: true
 }))
 
 // Set app to use Body Parser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 //'extended: false' parses strings and arrays.
 //'extended: true' parses nested objects
 //'expressValidator' must come after 'bodyParser', since data must be parsed first!
@@ -40,35 +62,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 app.use(function (req, res, next) {
-  var views = req.session.views
+	var views = req.session.views
 
-  if (!views) {
-    views = req.session.views = {}
-  }
+	if (!views) {
+		views = req.session.views = {}
+	}
 
-  // get the url pathname
-  var pathname = parseurl(req).pathname
+	// get the url pathname
+	var pathname = parseurl(req).pathname
 
-  // count the views
-  views[pathname] = (views[pathname] || 0) + 1
+	// count the views
+	views[pathname] = (views[pathname] || 0) + 1
 
-  next()
+	next()
 })
 
 app.get('/', function (req, res) {
-    console.log(secretWord);
-  res.render('index', {word: secretWord});  // this displays the secretWord on the page
+	console.log(secretWord);
+	res.render('index', {
+		word: displayableSW
+	});
+	//res.render('index', {word: secretWord});  // this displays the secretWord on the page
 });
 
 
 app.get('/foo', function (req, res, next) {
-  res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+	res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
 })
 
 app.get('/bar', function (req, res, next) {
-  res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
+	res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
 })
 
 app.listen(3000, function () {
-  console.log('word-game application listening on port 3000')
+	console.log('word-game application listening on port 3000')
 });
