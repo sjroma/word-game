@@ -12,10 +12,10 @@
 		<h1 class="title">Mystery Word</h1>
 		<h3 class="secret_word">{{ word }}</h3>
 		<p></p>
-		<form class="form_container">
+		<form class="form_container" method="post">
 			<fieldset class="guess_area">
 				<label for="name">Guess a letter:</label>
-				<input type="text" id="letter" name="Your guess" required>
+				<input type="text" id="letter" name="yourGuess" required>
 			</fieldset>
 			<input type="submit" value="Your guess" id="submit_button">
 		</form>

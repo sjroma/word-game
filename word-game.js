@@ -13,14 +13,14 @@ var fs = require('fs'); // File System module (part of Node.js)
 // goes to the computer dictionary and gets a random word
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 //console.log(words);  // Gets a crap-ton of words
-var randomWord = words[Math.floor(Math.random() * words.length)]; // forgot where I found this...adding comments for future me too late
+var randomWord = words[Math.floor(Math.random() * words.length)]; // forgot where I found this...
 var secretWord = randomWord;
 console.log("the secretWord is:", randomWord);
-var swArray = randomWord.split("");  // puts secret word in an array, letters separated by commas
+var swArray = randomWord.split(""); // puts secret word in an array, letters separated by commas
 console.log("secWord in array is:", swArray);
-let displaySW = makeDashes(swArray);  // call makeDashes function...use when comparing user guess?
+let displaySW = makeDashes(swArray); // call makeDashes function...use when comparing user guess?
 let joinSW = makeDashes(swArray);
-let displayableSW = joinSW.join('');  // to display dashes on screen the length of the word
+let displayableSW = joinSW.join(''); // to display dashes on screen the length of the word
 console.log("displaySW;", displaySW);
 console.log('displayableSW;', displayableSW);
 
@@ -32,9 +32,8 @@ function makeDashes(swArray) {
 	}
 	return dashArray;
 };
-console.log("should be dashes;", makeDashes(swArray));
-
-
+//console.log("should be dashes;", makeDashes(swArray));
+// end voodoo
 
 
 // View Engine
@@ -48,15 +47,16 @@ app.use(session({
 	saveUninitialized: true
 }))
 
-// Set app to use Body Parser Middleware
+// Set app to use Body Parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
 //'extended: false' parses strings and arrays.
 //'extended: true' parses nested objects
+
 //'expressValidator' must come after 'bodyParser', since data must be parsed first!
-//app.use(expressValidator());
+// app.use(expressValidator());
 
 // Set Static Path (this is where my static resourses, like CSS files, images, etc reside)
 app.use(express.static('public'));
@@ -82,7 +82,11 @@ app.get('/', function (req, res) {
 	res.render('index', {
 		word: displayableSW
 	});
-	//res.render('index', {word: secretWord});  // this displays the secretWord on the page
+});
+
+// this allows the form and console to talk
+app.post('/', function(req, res){
+	console.log(req.body.yourGuess);
 });
 
 
