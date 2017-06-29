@@ -5,14 +5,22 @@ body {
 }
 
 .container {
-  font-family: 'Chalkduster', 'Arial Rounded MT Bold', sans-serif;;
-}
-
-h1 {
-  
+  font-family: 'Chalkduster', 'Arial Rounded MT Bold', sans-serif;
+  font-size: larger;
 }
 
 .title {
   display: flex;
   justify-content: center;
+}
+
+.secret_word {
+    background: transparent;
+/*    border: 1px solid black;*/
+    display: flex;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-size: 1.5em;
+    justify-content: center;
+    padding-top: 1em;
+    text-transform: uppercase;  
 }

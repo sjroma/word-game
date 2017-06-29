@@ -13,8 +13,8 @@ var fs = require('fs'); // File System module (part of Node.js)
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 //console.log(words);  // Gets a crap-ton of words
 var randomWord = words[Math.floor(Math.random() * words.length)];
-var secretWord = randomWord.replace(/[A-Z]/g,"_");  // forgot where I found this...adding comments for future me too late
-console.log("the word is:", randomWord);  
+var secretWord = randomWord;  // forgot where I found this...adding comments for future me too late
+console.log("the secretWord is:", randomWord);  
 
 
 // View Engine
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //'expressValidator' must come after 'bodyParser', since data must be parsed first!
 //app.use(expressValidator());
 
-// Set Static Path (this is where my static resourses, like CSS files, reside)
+// Set Static Path (this is where my static resourses, like CSS files, images, etc reside)
 app.use(express.static('public'));
 
 app.use(function (req, res, next) {
@@ -56,7 +56,8 @@ app.use(function (req, res, next) {
 })
 
 app.get('/', function (req, res) {
-  res.render('index');
+    console.log(secretWord);
+  res.render('index', {word: secretWord});  // this displays the secretWord on the page
 });
 
 
