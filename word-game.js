@@ -79,7 +79,7 @@ app.use(function (req, res, next) {
 })
 
 // this should be the start of the game...so figure out how to display initial settings
-// this doesn't seem to display...seem I only get app.post...whycome?
+// this doesn't seem to display any longer...seems I only get app.post...whycome?
 app.get('/', function (req, res) {
 	console.log("in app.get", displayableSW);
 	res.render('index', {
@@ -99,10 +99,10 @@ app.get('/', function (req, res) {
 //});
 // end saved, semi-work
 
-// this sould be the game in progress
+// this should be the game in progress
 app.post('/', function(req, res){
 	var inputItem = req.body.yourGuess;
-	res.render('index', {
+	res.render('gameplay', {
 		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
 	});
 	console.log("in app post:", secretWord)
