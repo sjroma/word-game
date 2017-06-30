@@ -32,5 +32,20 @@ body {
 }
 
 .guess_area {
-	
+	border: none;
+	border-radius: 0.5em;
+}
+
+#submit_button {
+	background: transparent;
+	border: none;
+  border-radius: 0.6em;
+	color: #000;
+  cursor: pointer;
+	font-family: 'Chalkduster','Arial Rounded MT Bold', sans-serif;
+  font-size: inherit;
+}
+
+
+	font-size: inherit;
 }

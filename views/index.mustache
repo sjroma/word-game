@@ -17,9 +17,10 @@
 				<label for="name">Guess a letter:</label>
 				<input type="text" id="letter" name="yourGuess" required>
 			</fieldset>
-			<input type="submit" value="Your guess" id="submit_button">
+			<input type="submit" value="Submit guess" id="submit_button">
 		</form>
 		<p>Letters guessed...</p>
+		<p class="remainingGuesses">Guesses left...{{ remaining }}</p>
 	</div>
 </body>
 

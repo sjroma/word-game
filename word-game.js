@@ -7,7 +7,8 @@ const app = express();
 var fs = require('fs'); // File System module (part of Node.js)
 
 var guessedLetter = "";  // this will be the letter the user guesses
-var rememGuess = [];     // this will be all the letters the user guessed
+const rememGuess = [];     // this will be all the letters the user guessed
+let guessLeft = 8;
 
 // Word Game voodoo
 // goes to the computer dictionary and gets a random word
@@ -15,7 +16,7 @@ const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().sp
 //console.log(words);  // Gets a crap-ton of words
 var randomWord = words[Math.floor(Math.random() * words.length)]; // forgot where I found this...
 var secretWord = randomWord;
-console.log("the secretWord is:", randomWord);
+console.log("in declarations the secretWord is:", randomWord);
 var swArray = randomWord.split(""); // puts secret word in an array, letters separated by commas
 console.log("secWord in array is:", swArray);
 let displaySW = makeDashes(swArray); // call makeDashes function...use when comparing user guess?
@@ -77,10 +78,12 @@ app.use(function (req, res, next) {
 	next()
 })
 
+// this should be the start of the game...so figure out how to display initial settings
+// this doesn't seem to display...seem I only get app.post...whycome?
 app.get('/', function (req, res) {
-	console.log(secretWord);
+	console.log("in app.get", displayableSW);
 	res.render('index', {
-		word: displayableSW
+		word: displayableSW, remaining: guessLeft
 	});
 });
 
@@ -95,11 +98,14 @@ app.get('/', function (req, res) {
 //	console.log("guessedLetter", guessedLetter);
 //});
 // end saved, semi-work
+
+// this sould be the game in progress
 app.post('/', function(req, res){
 	var inputItem = req.body.yourGuess;
 	res.render('index', {
-		word: displayableSW, guessedLetters: guessedLetter
+		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
 	});
+	console.log("in app post:", secretWord)
 	console.log("guessedLetter", guessedLetter);
 });
 
