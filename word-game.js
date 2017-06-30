@@ -6,8 +6,8 @@ const mustacheExpress = require('mustache-express');
 const app = express();
 var fs = require('fs'); // File System module (part of Node.js)
 
-//var guessedLetter = "";  // this will be the letter the user guesses
-//var rememGuess = "";     // this will be all the letters the user guessed
+var guessedLetter = "";  // this will be the letter the user guesses
+var rememGuess = [];     // this will be all the letters the user guessed
 
 // Word Game voodoo
 // goes to the computer dictionary and gets a random word
@@ -84,9 +84,24 @@ app.get('/', function (req, res) {
 	});
 });
 
-// this allows the form and console to talk
+// this allows the form and console to talk, when this hits I still want the mystery word to show
+// these semi-work...gonna copy and make changes, saving in case
+//app.post('/', function(req, res){
+//	console.log(req.body.yourGuess);
+//	var inputItem = req.body.yourGuess;
+//	res.render('index', {
+//		word: displayableSW, guessedLetters: guessedLetter
+//	});
+//	console.log("guessedLetter", guessedLetter);
+//});
+// end saved, semi-work
 app.post('/', function(req, res){
 	console.log(req.body.yourGuess);
+	var inputItem = req.body.yourGuess;
+	res.render('index', {
+		word: displayableSW, guessedLetters: guessedLetter
+	});
+	console.log("guessedLetter", guessedLetter);
 });
 
 
