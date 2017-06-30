@@ -96,7 +96,6 @@ app.get('/', function (req, res) {
 //});
 // end saved, semi-work
 app.post('/', function(req, res){
-	console.log(req.body.yourGuess);
 	var inputItem = req.body.yourGuess;
 	res.render('index', {
 		word: displayableSW, guessedLetters: guessedLetter
