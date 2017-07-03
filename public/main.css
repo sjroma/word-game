@@ -36,6 +36,12 @@ body {
 	border-radius: 0.5em;
 }
 
+input {
+	background: transparent;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+	font-size: inherit;
+}
+
 #submit_button {
 	background: transparent;
 	border: none;
@@ -46,6 +52,16 @@ body {
   font-size: inherit;
 }
 
+.rules_container {
+	display: flex;
+  justify-content: center;
+	padding-top: 1.5em;
+}
 
-	font-size: inherit;
+.rules {
+	
+}
+
+ul {
+	list-style: none;
 }
