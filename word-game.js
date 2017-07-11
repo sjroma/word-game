@@ -14,14 +14,13 @@ var guessLeft = 8;
 // Word Game voodoo
 let randomWord = gamedata.randomWord;
 var secretWord = randomWord;
-console.log("in declarations the secWord is:", randomWord);
+console.log("voodoo.randomWord:", randomWord);
 var swArray = randomWord.split(""); // puts secret word in an array, letters separated by commas
-//console.log("in declarations secWord in array is:", swArray);
+//console.log("voodoo.swArray:", swArray);
 let displaySW = gamedata.makeD(swArray);
 let joinSW = gamedata.makeD(swArray);
 let displayableSW = joinSW.join(''); // display dashes on screen the length of the word
-//console.log("displaySW;", displaySW);
-console.log('displayableSW;', displayableSW);
+console.log("voodoo.displayableSW:", displayableSW);
 // end voodoo
 
 const app = express();
@@ -43,7 +42,7 @@ app.set('views', './views');
 app.set('view engine', 'mustache');
 
 app.use(session({
-	secret: 'keyboard cat',
+	secret: 'puckHead cat',
 	resave: false,
 	saveUninitialized: true
 }))
@@ -70,79 +69,35 @@ app.use(express.static('public'));
 
 // this should be the start of the game...
 app.get('/', function (req, res) {
-	console.log("in app.get", displayableSW);
 	guessString = '';
 //	incorrGuesses = '';
 	res.render('index', {
 		title: title, word: displayableSW, remaining: guessLeft
 	});
+	console.log("app.get1.displayableSW:", displayableSW);
 });
 
-// this allows the form and console to talk, when this hits I still want the mystery word to show
+// this allows the form and console to talk
 // this is the game in progress
 app.post('/', function(req, res) {
 	guessedLetter = req.body.yourGuess.toLowerCase();
 	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
 	
 	var errors = req.validationErrors();
-	console.log("in app.post, guessInput:", guessedLetter);
+	console.log("app.post1.guessedLetter:", guessedLetter);
   if (errors) {
     // Render validation error messages
-    res.render('gameplay', {errors: errors});
-		console.log("errors", errors);
+    res.render('gameplay', {word: displayableSW, errors: errors, guessedLetters: guessedLetter, remaining: guessLeft});
+		console.log("app.post1.errors:", errors);
   } else {
 		let guess = gamedata.isNewLetter(guessedLetter, guessedLetter)
 	res.render('gameplay', {
 		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
 	  });
-	console.log("word-game app.post:", secretWord);
-	console.log("app.post, guessedLetter", guessedLetter);
+	console.log("app.post1.displayableSW:", displayableSW);
   }
 });
 
-app.get('/', function(req,res) {
-	guessedLetter = req.body.yourGuess.toLowerCase();
-	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
-	
-	var errors = req.validationErrors();
-	console.log("guessInput(gameplay.get):", guessedLetter);
-  if (errors) {
-    // Render validation error messages
-    res.render('gameplay', {errors: errors});
-		console.log("errors", errors);
-  } else {
-		let guess = gameplay.isNewLetter(guessedLetter, guessedLetter)
-	res.render('gameplay', {
-		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
-    });
-  }
-});
-		
-app.post('/', function(req,res) {
-	guessedLetter = req.body.yourGuess.toLowerCase();
-	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
-	
-	var errors = req.validationErrors();
-	console.log("guessInput(gameplay.post):", guessedLetter);
-  if (errors) {
-    // Render validation error messages
-    res.render('gameplay', {errors: errors});
-		console.log("errors", errors);
-  } else {
-		let guess = gameplay.isNewLetter(guessedLetter, guessedLetter)
-	res.render('gameplay', {
-		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
-    });
-	}
-});
-
-//app.get('/foo', function (req, res, next) {
-//	res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
-//})
-//
-//app.get('/bar', function (req, res, next) {
-//	res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
-//})
 
 app.listen(3000, function () {
 	console.log('word-game application listening on port 3000')
