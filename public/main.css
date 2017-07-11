@@ -52,6 +52,11 @@ input {
   font-size: inherit;
 }
 
+.errors {
+	display: flex;
+  justify-content: center;
+}
+
 .rules_container {
 	display: flex;
   justify-content: center;

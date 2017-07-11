@@ -12,13 +12,24 @@
 		<h1 class="title">Mystery Word</h1>
 		<h3 class="secret_word">{{ word }}</h3>
 		<p></p>
-		<form class="form_container" method="post">
+		<form class="form_container" action="/" method="post">
 			<fieldset class="guess_area">
 				<label for="name">Guess a letter:</label>
 				<input type="text" id="letter" name="yourGuess" required>
 			</fieldset>
 			<input type="submit" value="Guess" id="submit_button">
 		</form>
+<!--
+				<div class="errors">
+			{{#errors.0}}
+			<ul>
+				{{#errors}}
+				<li>{{msg}}</li>
+				{{/errors}}
+			</ul>
+			{{/errors.0}}
+		</div>
+-->
 		<div class="rules_container">
 			<div class="rules">
 				<p>The rules are simple...</p>
