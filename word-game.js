@@ -78,21 +78,25 @@ app.get('/', function (req, res) {
 });
 
 // this allows the form and console to talk
-// this is the game in progress
 app.post('/', function(req, res) {
 	guessedLetter = req.body.yourGuess.toLowerCase();
+	rememGuess.push(guessedLetter.toLowerCase());
+//	console.log("app.post.rememGuess:", rememGuess);
 	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
 	
 	var errors = req.validationErrors();
-	console.log("app.post.guessedLetter:", guessedLetter);
+//	console.log("app.post.guessedLetter:", guessedLetter);
   if (errors) {
     // Render validation error messages
-    res.render('gameplay', {word: displayableSW, errors: errors, guessedLetters: guessedLetter, remaining: guessLeft});
+    res.render('gameplay', {word: displayableSW, errors: errors, guessedLetters: rememGuess, remaining: guessLeft});
 		console.log("app.post.errors:", errors);
   } else {
 		let guess = gamedata.isNewLetter(guessedLetter, guessedLetter)
+		console.log("app.post.guess:", guess);
+		console.log("app.post.guessedLetter:", guessedLetter);
+		console.log("app.post.rememGuess:", rememGuess);
 	res.render('gameplay', {
-		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
+		word: displayableSW, guessedLetters: rememGuess, remaining: guessLeft
 	  });
 	console.log("app.post.displayableSW:", displayableSW);
   }
