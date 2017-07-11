@@ -4,11 +4,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const mustacheExpress = require('mustache-express');
+const gamedata = require('./gamedata'); // calling objects from gamedata.js
 
-// calling objects from gamedata.js
-const gamedata = require('./gamedata')
-
-var guessedLetter = '';  // this will be the letter the user guesses
+let title = 'Mystery Word';
+var guessedLetter = ''; // this will be the letter the user guesses
 const rememGuess = [];  // this will be all the letters the user guessed
 var guessLeft = 8;
 
@@ -17,12 +16,11 @@ let randomWord = gamedata.randomWord;
 var secretWord = randomWord;
 console.log("in declarations the secWord is:", randomWord);
 var swArray = randomWord.split(""); // puts secret word in an array, letters separated by commas
-console.log("in declarations secWord in array is:", swArray);
-
+//console.log("in declarations secWord in array is:", swArray);
 let displaySW = gamedata.makeD(swArray);
 let joinSW = gamedata.makeD(swArray);
 let displayableSW = joinSW.join(''); // display dashes on screen the length of the word
-console.log("displaySW;", displaySW);
+//console.log("displaySW;", displaySW);
 console.log('displayableSW;', displayableSW);
 // end voodoo
 
@@ -53,6 +51,7 @@ app.use(session({
 // Set Static Path (this is where my static resourses, like CSS files, images, etc reside)
 app.use(express.static('public'));
 
+// Session Authentication
 //app.use(function (req, res, next) {
 //	var views = req.session.views
 //
@@ -73,9 +72,9 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
 	console.log("in app.get", displayableSW);
 	guessString = '';
-	incorrGuesses = '';
+//	incorrGuesses = '';
 	res.render('index', {
-		word: displayableSW, remaining: guessLeft
+		title: title, word: displayableSW, remaining: guessLeft
 	});
 });
 
@@ -101,7 +100,7 @@ app.post('/', function(req, res) {
   }
 });
 
-app.get('gameplay', function(req,res) {
+app.get('/', function(req,res) {
 	guessedLetter = req.body.yourGuess.toLowerCase();
 	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
 	
@@ -119,7 +118,7 @@ app.get('gameplay', function(req,res) {
   }
 });
 		
-app.post('gameplay', function(req,res) {
+app.post('/', function(req,res) {
 	guessedLetter = req.body.yourGuess.toLowerCase();
 	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
 	
