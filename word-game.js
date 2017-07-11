@@ -74,7 +74,7 @@ app.get('/', function (req, res) {
 	res.render('index', {
 		title: title, word: displayableSW, remaining: guessLeft
 	});
-	console.log("app.get1.displayableSW:", displayableSW);
+	console.log("app.get.displayableSW:", displayableSW);
 });
 
 // this allows the form and console to talk
@@ -84,17 +84,17 @@ app.post('/', function(req, res) {
 	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
 	
 	var errors = req.validationErrors();
-	console.log("app.post1.guessedLetter:", guessedLetter);
+	console.log("app.post.guessedLetter:", guessedLetter);
   if (errors) {
     // Render validation error messages
     res.render('gameplay', {word: displayableSW, errors: errors, guessedLetters: guessedLetter, remaining: guessLeft});
-		console.log("app.post1.errors:", errors);
+		console.log("app.post.errors:", errors);
   } else {
 		let guess = gamedata.isNewLetter(guessedLetter, guessedLetter)
 	res.render('gameplay', {
 		word: displayableSW, guessedLetters: guessedLetter, remaining: guessLeft
 	  });
-	console.log("app.post1.displayableSW:", displayableSW);
+	console.log("app.post.displayableSW:", displayableSW);
   }
 });
 
