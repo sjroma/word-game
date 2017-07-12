@@ -8,7 +8,7 @@ const gamedata = require('./gamedata'); // calling objects from gamedata.js
 
 let title = 'Mystery Word';
 var guessedLetter = ''; // this will be the letter the user guesses
-const rememGuess = [];  // this will be all the letters the user guessed
+const rememGuess = []; // this will be all the letters the user guessed
 var guessLeft = 8;
 
 // Word Game voodoo
@@ -67,39 +67,52 @@ app.use(express.static('public'));
 //	next()
 //})
 
-// this should be the start of the game...
+// this is the start of the game...
 app.get('/', function (req, res) {
 	guessString = '';
-//	incorrGuesses = '';
+	//	incorrGuesses = '';
 	res.render('index', {
-		title: title, word: displayableSW, remaining: guessLeft
+		title: title,
+		word: displayableSW,
+		remaining: guessLeft
 	});
 	console.log("app.get.displayableSW:", displayableSW);
 });
 
 // this allows the form and console to talk
-app.post('/', function(req, res) {
+app.post('/', function (req, res) {
 	guessedLetter = req.body.yourGuess.toLowerCase();
-	rememGuess.push(guessedLetter.toLowerCase());
-//	console.log("app.post.rememGuess:", rememGuess);
-	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({min:0, max:1}).isAlpha();
-	
+	//	rememGuess.push(guessedLetter.toLowerCase());
+	//	console.log("app.post.rememGuess:", rememGuess);
+	req.checkBody('yourGuess', "Please enter one letter").notEmpty().isLength({
+		min: 0,
+		max: 1
+	}).isAlpha();
+
 	var errors = req.validationErrors();
-//	console.log("app.post.guessedLetter:", guessedLetter);
-  if (errors) {
-    // Render validation error messages
-    res.render('gameplay', {word: displayableSW, errors: errors, guessedLetters: rememGuess, remaining: guessLeft});
+	//	console.log("app.post.guessedLetter:", guessedLetter);
+	if (errors) {
+		// Render validation error messages
+		res.render('gameplay', {
+			word: displayableSW,
+			errors: errors,
+			guessedLetters: rememGuess,
+			remaining: guessLeft
+		});
 		console.log("app.post.errors:", errors);
-  } else {
+	} else {
+		rememGuess.push(guessedLetter.toLowerCase());
 		let guess = gamedata.isNewLetter(guessedLetter, guessedLetter)
-		console.log("app.post.guess:", guess);
+//		console.log("app.post.guess:", guess);
 		console.log("app.post.guessedLetter:", guessedLetter);
 		console.log("app.post.rememGuess:", rememGuess);
-	res.render('gameplay', {
-		word: displayableSW, guessedLetters: rememGuess, remaining: guessLeft
-	  });
-	console.log("app.post.displayableSW:", displayableSW);
-  }
+		res.render('gameplay', {
+			word: displayableSW,
+			guessedLetters: rememGuess,
+			remaining: guessLeft
+		});
+		console.log("app.post.displayableSW:", displayableSW);
+	}
 });
 
 

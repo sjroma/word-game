@@ -15,14 +15,14 @@
 		<form class="form_container" action="/" method="post">
 			<fieldset class="guess_area">
 				<label for="name">Guess a letter:</label>
-				<input type="text" id="letter" name="yourGuess" required>
+				<input type="text" id="letter" name="yourGuess">
 			</fieldset>
 			<input type="submit" value="Guess" id="submit_button">
 		</form>
 		<div class="errors">
 				<ul>
 				{{#errors}}
-				<li>{{msg}}</li>
+				<li>{{ msg }}</li>
 				{{/errors}}
 			</ul>
 		</div>
