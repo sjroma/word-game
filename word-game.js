@@ -19,9 +19,9 @@ var swArray = randomWord.split(""); // puts secret word in an array, letters sep
 //console.log("voodoo.swArray:", swArray);
 let displaySW = gamedata.makeD(swArray);
 let joinSW = gamedata.makeD(swArray);
-let displayableSW = joinSW.join(''); // display dashes on screen the length of the word
+let displayableSW = joinSW; // display dashes on screen the length of the word
 console.log("voodoo.secretWord:", secretWord);
-console.log("voodoo.displayableSW:", displayableSW);
+console.log("voodoo.displayableSW:",  displayableSW);
 // end voodoo
 
 const app = express();
@@ -73,8 +73,7 @@ app.get('/', function (req, res) {
 	//	incorrGuesses = '';
 	res.render('index', {
 		title: title,
-//		secWord: secretWord,
-		word: displayableSW,
+		word: displayableSW.join(' '),
 		remaining: guessLeft
 	});
 	console.log("app.get.displayableSW:", displayableSW);
@@ -92,7 +91,7 @@ app.post('/', function (req, res) {
 	if (errors) {
 		// Render validation error messages
 		res.render('gameplay', {
-			word: displayableSW,
+			word: displayableSW.join(' '),
 			errors: errors,
 			guessedLetters: rememGuess,
 			remaining: guessLeft
@@ -103,33 +102,20 @@ app.post('/', function (req, res) {
 		let guess = gamedata.isNewLetter(guessedLetter, guessedLetter)
 		console.log("app.post.rememGuess:", rememGuess);
 
-		
 		if (secretWord.includes(guessedLetter)) {
-			for (i = 0; i < secretWord.length; i++) {
-				if (secretWord[i] === guessedLetter) {
-					displayableSW = secretWord[i].push(guessedLetter);
-//					secretWord[i] = displayableSW[i].replace('_', guessedLetter);
-					console.log("app.post.guessedLetter: ", guessedLetter);
-					console.log("displayableWordPop:", displayableSW);
-					console.log("secretWord[i]:", secretWord[i]);
-					console.log("displayableSW[i]:", displayableSW[i]);
-				}
-			}
-//			return secretWord;
-		}
-		else {
+			var index = secretWord.indexOf(guessedLetter);
+			displayableSW[index] = guessedLetter;
+			console.log(typeof displayableSW)
+		} else {
 			guessLeft -= 1;
 		};;
-		
 
 		res.render('gameplay', {
-			title: title, 
-//			secWord: secretWord,
+			title: title,
 			word: displayableSW,
 			guessedLetters: rememGuess,
 			remaining: guessLeft
 		});
-		console.log("app.post.displayableSW:", displayableSW);
 	}
 });
 
