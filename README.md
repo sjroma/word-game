@@ -15,7 +15,7 @@ Store the word the user is trying to guess in a session.
 
 On the page, show the number of letters in the word like so:    
 
-_ _ _ _ _ _ _    
+'_ _ _ _ _ _ _'    
 
 Ask the user to supply one guess (i.e. letter) at a time, using a form. This form should 
 be validated to make sure only 1 letter is sent. This letter can be upper or lower case 
