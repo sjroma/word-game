@@ -107,10 +107,15 @@ app.post('/', function (req, res) {
 		if (secretWord.includes(guessedLetter)) {
 			for (i = 0; i < secretWord.length; i++) {
 				if (secretWord[i] === guessedLetter) {
-					secretWord[i] = displayableSW[i].replace('_', guessedLetter);
+					displayableSW = secretWord[i].push(guessedLetter);
+//					secretWord[i] = displayableSW[i].replace('_', guessedLetter);
 					console.log("app.post.guessedLetter: ", guessedLetter);
+					console.log("displayableWordPop:", displayableSW);
+					console.log("secretWord[i]:", secretWord[i]);
+					console.log("displayableSW[i]:", displayableSW[i]);
 				}
 			}
+//			return secretWord;
 		}
 		else {
 			guessLeft -= 1;
@@ -118,7 +123,7 @@ app.post('/', function (req, res) {
 		
 
 		res.render('gameplay', {
-			title: title,
+			title: title, 
 //			secWord: secretWord,
 			word: displayableSW,
 			guessedLetters: rememGuess,
