@@ -22,7 +22,35 @@ body {
     font-size: 1.5em;
     justify-content: center;
     padding-top: 1em;
-    text-transform: uppercase;  
+/*    text-transform: uppercase;  */
+}
+
+.lost_game {
+    background: transparent;
+/*    border: 1px solid black;*/
+    display: flex;
+    font-family: 'Chalkduster', 'Arial Rounded MT Bold', sans-serif;
+    font-size: 1.5em;
+    justify-content: center;
+    padding-top: 1em;
+}
+
+p {
+	background: transparent;
+    display: flex;
+    font-size: 1.5em;
+/*    justify-content: center;*/
+    padding-top: 1em;
+}
+
+.reveal_word {
+    background: transparent;
+    display: flex;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-size: 1.5em;
+    justify-content: center;
+    padding-top: 1em;
+    text-transform: lowercase;  
 }
 
 .form_container {
@@ -38,6 +66,7 @@ body {
 
 input {
 	background: transparent;
+	border-color: lightslategrey;
   font-family: 'Arial Rounded MT Bold', sans-serif;
 	font-size: inherit;
 }

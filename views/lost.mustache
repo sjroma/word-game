@@ -4,10 +4,19 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="main.css">
-	<title>Mystery Word</title>
+	<title>{{ title }}</title>
 </head>
 
 <body>
+	<div class="container">
+		<h1 class="title">Mystery Word</h1>
+		<h2 class="lost_game">You lost this time. The mystery word was...</h2>
+		<p class="reveal_word">{{ secWord }}</p>
+		<p class="user_guessed">Your guesses... {{ word }}</p>
+	</div>
+	<form class="form_container" action="/" method="get">
+		<input type="submit" value="Play Again" id="submit_button">
+	</form>
 </body>
 
 </html>
